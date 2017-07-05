@@ -1,0 +1,24 @@
+{
+  "name": "postit-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "akande oladimeji",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.15.2",
+    "body-parser": "^1.17.1",
+    "cookie-parser": "^1.4.3",
+    "express-handlebars": "^3.0.0",
+    "express-session": "^1.15.1",
+    "hbs": "^4.0.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-preset-env": "^1.6.0",
+    "morgan": "^1.8.2"
+  }
+}
