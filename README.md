@@ -1,9 +1,30 @@
-## Postit Application 
+## Postit  
 <br>
 > Postit is a simple application that allows friends 
 > and colleagues create groups for notifications.
 > This way one person can post notifications to 
-> everyone by sending a message once. The application 
-> allows people create accounts, create groups and 
-> add registered users to the groups, and then send 
-> messasges out to these groups whenever they want.
+> everyone by sending a message once. <br>
+### This application 
+- allows people create accounts, 
+- create groups,
+- add registered users to the groups, 
+- send messasges out to these groups whenever they want.
+
+<br>
+<br>
+<br>
+
+## Getting Started
+1. Clone the repository:
+```
+https://github.com/oladimillion/Postit.git
+```
+2. Navigate into the cloned repository folder
+
+3. Install dependencies:
+```
+$ npm install
+```
+4. run `node server` to start the server
+
+5. enter `http://localhost:3000` in your browser use the app
