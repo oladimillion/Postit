@@ -1,4 +1,5 @@
-function routes(app) {
+exports.routes = (app) => {
+    // let app = app().Router;
     // Authentication Middleware
     // app.get('*', function(req, res, next) {
 
@@ -19,38 +20,19 @@ function routes(app) {
 
     // });
 
-    app.get("/", (req, res) => {
-        res.send("Hello home page");
-    });
+    // app.get("/", (req, res) => {
+    //     res.render("users/logreg.hbs");
+    // });
 
-    //get group messages
-    app.get("/api/group/:id/message", (req, res) => {
-        res.send(`getting message to group id ${req.params.id}`);
-    });
+    // app.get("api/group/all", (req, res) => {
+    //     return res.render("users/grouplist.hbs");
+    //     // res.render("users/logreg.hbs");
+    // });
 
-    app.post("/api/user/signin", (req, res) => {
-        res.send("Hello sign in auth");
-    });
+    // //get group messages
+    // app.get("/api/group/:id/message", (req, res) => {
+    //     res.render("users/logreg");;
+    // });
 
-    app.post("/api/user/signup", (req, res) => {
-        res.send("Hello sign up auth");
-    });
-
-    //create broadcast group
-    app.post("/api/group", (req, res) => {
-        res.send("Hello create group");
-    });
-
-    //add other users to group
-    app.post("/api/group/:id/user", (req, res) => {
-        res.send(`adding users to group id ${req.params.id}`);
-    });
-
-    //post message to group
-    app.post("/api/group/:id/message", (req, res) => {
-        res.send(`sending message to group id ${req.params.id}`);
-    });
 
 }
-
-module.exports = routes;

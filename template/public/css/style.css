@@ -16,15 +16,14 @@ body {
     min-width: 700px;
     background: #fff;
     font-size: 1.6em;
-	height: 100%;
-	
+    height: 100%;
 }
 
 #login {
     width: 100%;
     border: 1px solid lightgray;
     height: 100px;
-    padding: 30px 60px 20px 20px;
+    padding: 20px 60px 20px 20px;
     color: #fff;
     background: #3B5998;
 }
@@ -34,13 +33,15 @@ body {
 }
 
 #login table td {
-    padding: 3px;
+    padding: 5px;
+    padding-bottom: 1px;
+    font-size: 14px;
 }
 
 #login table input {
     padding-left: 4px;
-    width: 130px;
-    height: 24px;
+    width: 140px;
+    height: 27px;
     font-size: 13px;
     border: 0.5px solid black;
 }
@@ -125,7 +126,6 @@ tr a:hover {
     height: 440px;
     overflow: auto;
     overflow-x: hidden;
-    //border: 1px solid gray;
     border-radius: 4px;
     padding-top: 5px;
     padding-bottom: 5px;
@@ -165,7 +165,7 @@ tr a:hover {
 
 .mess-form {
     padding: 20px 40px;
-	background: linear-gradient(#fff, #5D8AA8)
+    background: linear-gradient(#fff, #5D8AA8)
 }
 
 .mess-form fieldset {
@@ -184,36 +184,36 @@ textarea {
     background-color: #FFF;
 }
 
-li{
-	list-style: none;
+li {
+    list-style: none;
 }
 
-.top-item{
-	width: 100%;
-	padding-top: 5px;
+.top-item {
+    width: 100%;
+    padding-top: 5px;
 }
 
-.top-item li{
-	display: inline-block;
-	margin: 1px;
-	padding: 10px;
+.top-item li {
+    display: inline-block;
+    margin: 1px;
+    padding: 10px;
 }
 
-.top-item a{
-	color: #4A9FF4;
+.top-item a {
+    color: #4A9FF4;
 }
 
-.top-item li:hover{
-	background-color: gray;
+.top-item li:hover {
+    background-color: gray;
 }
 
-.top-item li:hover a{
-	color: #fff;
+.top-item li:hover a {
+    color: #fff;
 }
 
-.top-item ul{
-	width: 25%;
-	float: right;
+.top-item ul {
+    width: 25%;
+    float: right;
 }
 
 .message-list {
@@ -226,7 +226,7 @@ li{
     padding-bottom: 5px;
     padding-left: 5px;
     padding-right: 5px;
-	margin: 5px 0;
+    margin: 5px 0;
     margin-bottom: 20px;
     background: linear-gradient(#fff, #5D8AA8)
 }
@@ -238,33 +238,31 @@ li{
     background-color: #19404A;
     list-style-type: none;
     border-radius: 5px;
-	margin: 0 10px;
+    margin: 0 10px;
     margin-bottom: 5px;
-	color: #fff;
-	border: 1px solid #fff;
+    color: #fff;
+    border: 1px solid #fff;
 }
 
-.list-users{
-	width: 80%;
-	margin: 0  auto;
+.list-users {
+    width: 80%;
+    margin: 0 auto;
 }
 
-.list-users div{
-	display: inline-block;
-	padding: 10px;
-	background-color: #19404A;
+.list-users div {
+    display: inline-block;
+    padding: 10px;
+    background-color: #19404A;
     list-style-type: none;
     border-radius: 2px;
     margin-bottom: 5px;
 }
 
-
 #user-list {
     width: 100%;
-	height: 440px;
+    height: 440px;
     overflow: auto;
     overflow-x: hidden;
-    //border: 1px solid gray;
     border-radius: 4px;
     padding-top: 5px;
     padding-bottom: 5px;
@@ -275,16 +273,15 @@ li{
 }
 
 #user-list,
-#user-list:hover{
+#user-list:hover {
     text-decoration: none;
     color: #fff;
 }
 
-
-.body form{
-	background: linear-gradient(#fff, #5D8AA8);
-	position: relative;
-	height: 480px;
+.body form {
+    background: linear-gradient(#fff, #5D8AA8);
+    position: relative;
+    height: 480px;
 }
 
 .user {
@@ -295,17 +292,37 @@ li{
     margin-bottom: 5px;
 }
 
-.user li{
-	display: inline-block;
-	padding-left: 20px
+.user li {
+    display: inline-block;
+    padding-left: 20px
 }
 
-.user li:hover input{
-	cursor: pointer;
+.user li:hover input {
+    cursor: pointer;
 }
 
-body .btn{
-	position: absolute;
-	top: 420px;
-	right: 2px;
+.body .btn {
+    position: absolute;
+    top: 420px;
+    right: 2px;
+}
+
+.button {
+    width: auto;
+    height: auto;
+    font: 15px bold;
+    border-radius: 3px;
+    padding: 5px;
+}
+
+.button-primary {
+    color: white;
+    background-color: cornflowerblue;
+    border: 0.5px solid cornflowerblue;
+}
+
+.button-primary:hover {
+    padding: 5px;
+    color: lightgray;
+    background-color: royalblue;
 }

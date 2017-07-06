@@ -11,7 +11,7 @@ const bodyParser = require('body-parser');
 
 // Start Express
 let app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8000;
 
 app.disable('x-powered-by');
 
@@ -24,17 +24,18 @@ app.use(bodyParser.urlencoded({ extended: false }))
 
 
 // Use Sessions
-app.use(session({ secret: 'andela', resave: false, saveUninitialized: true, cookie: { maxAge: 600000 } }))
+app.use(session({ secret: 'andela', resave: false, saveUninitialized: true, cookie: { maxAge: 600000 } }));
 
 
 /*
  *  Middlewares
  *  Make the public folder accessible
  */
-app.use(express.static('template/public'));
-app.use(express.static('template/public/js'));
-app.use(express.static('template/public/css'));
-app.use(express.static('template/public/img'));
+app.use(express.static('views/template'));
+app.use(express.static('views/template/public/js'));
+app.use(express.static('views/template/public/css'));
+app.use(express.static('views/template/public/img'));
+app.use(express.static('views/template/public/bootstrap'));
 
 
 /*
@@ -44,7 +45,7 @@ app.use(express.static('template/public/img'));
 app.set('view engine', 'hbs');
 
 // register the partials used for hbs
-hbs.registerPartials(__dirname + '/template/views/partials');
+hbs.registerPartials(__dirname + '/views/partials');
 
 //Helper Class for counter
 //hbs.registerHelper("counter", index => index + 1);
@@ -53,7 +54,12 @@ hbs.registerPartials(__dirname + '/template/views/partials');
 
 
 // Load Routes
-require('./server/routes/routes')(app);
+let router = express.Router();
+// let router = Router();
+require('./server/routes/routes').routes(router);
+require('./server/routes/userRoutes').routes(router);
+require('./server/routes/groupRoutes').routes(router);
+app.use("/api", router);
 
 
 
