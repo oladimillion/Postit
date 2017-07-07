@@ -3,6 +3,9 @@ const db = require("../model/model");
 let regUser = db.regUser;
 let findOneUser = db.findOneUser;
 
+let RegUser = db.RegUser;
+let FindOneUser = db.FindOneUser;
+
 
 exports.routes = (app) => {
     app.post("/user/signin", (req, res) => {
@@ -11,7 +14,7 @@ exports.routes = (app) => {
             password: req.body.password
         };
 
-        findOneUser(userObj, (result) => {
+        FindOneUser(userObj, (result) => {
             return res.send(result);
         });
     });
@@ -28,7 +31,7 @@ exports.routes = (app) => {
             password: req.body.password,
             groups: req.body.groups
         };
-        regUser(userObj, (result) => {
+        RegUser(userObj, (result) => {
             return res.send(result);
         });
     });

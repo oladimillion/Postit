@@ -1,36 +1,41 @@
 const db = require("../model/model");
 
-
-let findAllUser = db.findAllUser;
-let createGroup = db.createGroup;
-let createMessage = db.createMessage;
-let findAllGroup = db.findAllGroup;
-let findGroupMsg = db.findGroupMsg;
-let findUserGroups = db.findUserGroups;
+let AddUserToGroup = db.AddUserToGroup;
+let CreateNewGroup = db.CreateNewGroup;
+let PostMessage = db.PostMessage;
+let FindGroupMsg = db.FindGroupMsg;
 
 
 exports.routes = (app) => {
     //create broadcast group
     app.post("/group", (req, res) => {
-        let data = {
-            groupName: req.body.groupname,
-            username: req.body.username,
-            recievedMsgCount: 0,
-            sentMsgCount: 0
-        }
-        createGroup(data, (data)=>{
+        console.log("body: ", req.body);
+
+        let groupname = req.body.groupname;
+        let username = req.body.username;
+
+        CreateNewGroup(username, groupname, (data) => {
             return res.send(data);
         });
     });
 
     //add other users to group
-    app.post("/api/group/:id/user", (req, res) => {
-        res.send(`adding users to group id ${req.params.id}`);
+    app.post("/group/:id/user", (req, res) => {
+        AddUserToGroup(req.body.username, req.params.id, (data) => {
+            return res.send(data);
+        });
     });
 
     //post message to group
-    app.post("/api/group/:id/message", (req, res) => {
-        res.send(`sending message to group id ${req.params.id}`);
+    app.post("/group/:id/message", (req, res) => {
+        let data = {
+            username: req.body.username,
+            groupid: req.params.id,
+            message: req.body.message
+        };
+        PostMessage(data, (result) => {
+            return res.send(result);
+        });
     });
 
 }
