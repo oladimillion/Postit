@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 
 // Start Express
 let app = express();
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 3000;
 
 app.disable('x-powered-by');
 
