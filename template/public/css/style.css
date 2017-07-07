@@ -17,10 +17,12 @@ body {
     background: #fff;
     font-size: 1.6em;
     height: 100%;
+    background: linear-gradient(#fff, #5D8AA8);
 }
 
 #login {
     width: 100%;
+    min-width: 600px;
     border: 1px solid lightgray;
     height: 100px;
     padding: 20px 60px 20px 20px;
@@ -28,11 +30,18 @@ body {
     background: #3B5998;
 }
 
+#login div {
+    float: left;
+    width: 10%;
+}
+
 #login table {
     float: right;
+    width: 400px;
 }
 
 #login table td {
+    width: 50%;
     padding: 5px;
     padding-bottom: 1px;
     font-size: 14px;
@@ -49,14 +58,15 @@ body {
 #reg-form {
     width: 100%;
     height: 450px;
-    background: linear-gradient(#fff, #5D8AA8);
+    min-height: 100%;
 }
 
 #registration {
     margin-top: 20px;
     margin-right: 20px;
+    margin-left: 20px;
     float: right;
-    width: 580px;
+    width: 500px;
 }
 
 #registration input {
@@ -64,6 +74,16 @@ body {
     height: 27px;
     padding-left: 8px;
     font-size: 15px;
+}
+
+#info {
+    width: 400px;
+    padding: 30px;
+    float: left;
+}
+
+#info div {
+    font-size: 20px;
 }
 
 fieldset {
@@ -212,8 +232,31 @@ li {
 }
 
 .top-item ul {
-    width: 25%;
+    width: 34%;
     float: right;
+}
+
+.new-group {
+    width: 100%;
+    margin: 10px;
+}
+
+.new-group a {
+    margin: 5px;
+    padding: 10px;
+}
+
+.new-group a:hover {
+    background-color: gray;
+    color: #fff;
+}
+
+.new-group input {
+    padding-left: 5px;
+    width: 200px;
+    height: 27px;
+    font-size: 13px;
+    border: 0.5px solid black;
 }
 
 .message-list {
@@ -302,9 +345,9 @@ li {
 }
 
 .body .btn {
-    position: absolute;
-    top: 420px;
-    right: 2px;
+    border: 0.5px solid cornflowerblue;
+    margin-left: 20px;
+    margin-right: 40px;
 }
 
 .button {
@@ -312,17 +355,35 @@ li {
     height: auto;
     font: 15px bold;
     border-radius: 3px;
-    padding: 5px;
+    padding: 6px;
 }
 
-.button-primary {
+
+/* .button-primary {
     color: white;
     background-color: cornflowerblue;
     border: 0.5px solid cornflowerblue;
 }
 
 .button-primary:hover {
-    padding: 5px;
+    padding: 6px;
     color: lightgray;
     background-color: royalblue;
+} */
+
+.button-primary {
+    color: white;
+    background-color: cornflowerblue;
+    border: 0.5px solid #fff;
+}
+
+.button-primary:hover {
+    padding: 6px;
+    color: lightgray;
+    background-color: royalblue;
+    cursor: pointer;
+}
+
+.add-user {
+    border: none;
 }

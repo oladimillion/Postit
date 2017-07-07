@@ -1,7 +1,5 @@
 const db = require("../model/model");
 
-let regUser = db.regUser;
-let findOneUser = db.findOneUser;
 
 let RegUser = db.RegUser;
 let FindOneUser = db.FindOneUser;
@@ -15,13 +13,13 @@ exports.routes = (app) => {
         };
 
         FindOneUser(userObj, (result) => {
-            return res.send(result);
+            return res.json(result);
         });
     });
 
     app.post("/user/signup", (req, res) => {
         if (req.body.password !== req.body.cpassword) {
-            return res.send("Password do not match");
+            return res.json({ success: false, message: "Password do not match" });
         }
 
         let userObj = {
@@ -32,7 +30,7 @@ exports.routes = (app) => {
             groups: req.body.groups
         };
         RegUser(userObj, (result) => {
-            return res.send(result);
+            return res.json(result);
         });
     });
 }

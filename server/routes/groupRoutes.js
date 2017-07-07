@@ -15,7 +15,7 @@ exports.routes = (app) => {
         let username = req.body.username;
 
         CreateNewGroup(username, groupname, (data) => {
-            return res.send(data);
+            return res.json(data);
         });
     });
 

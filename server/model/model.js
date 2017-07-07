@@ -4,9 +4,9 @@ const config = require(__dirname + '/config.json')[env];
 const connection = new Sequelize("postit", "postgres", "1234", config);
 
 connection.query(`CREATE TABLE IF NOT EXISTS users 
-    (username VARCHAR(30) NOT NULL, password VARCHAR(30) NOT NULL, 
-    email VARCHAR(30) NOT NULL, phone VARCHAR(30) NOT NULL, 
-    groupids VARCHAR(30), UNIQUE(username,email,phone))`, { type: connection.QueryTypes.CREATE })
+(username VARCHAR(30) UNIQUE, password VARCHAR(30) , 
+email VARCHAR(30) UNIQUE, phone VARCHAR(30) UNIQUE, 
+    groupids VARCHAR(30))`, { type: connection.QueryTypes.CREATE })
     .then(user => {
         console.log("users table created");
     })
@@ -14,9 +14,9 @@ connection.query(`CREATE TABLE IF NOT EXISTS users
         console.log(error);
         console.log("users table not created");
     });
-
+//, UNIQUE(groupid, groupname)
 connection.query(`CREATE TABLE IF NOT EXISTS groups 
-    (groupid INTEGER, groupname VARCHAR(30) NOT NULL, UNIQUE(groupname))`, { type: connection.QueryTypes.CREATE })
+(groupid INTEGER UNIQUE, groupname VARCHAR(30) UNIQUE)`, { type: connection.QueryTypes.CREATE })
     .then(groups => {
         console.log("group table created");
     })
@@ -25,8 +25,8 @@ connection.query(`CREATE TABLE IF NOT EXISTS groups
     });
 
 connection.query(`CREATE TABLE IF NOT EXISTS messages 
-    (msgcount INTEGER, groupid INTEGER NOT NULL, username VARCHAR(30) NOT NULL, 
-        message VARCHAR(1000) NOT NULL)`, { type: connection.QueryTypes.CREATE })
+(msgcount INTEGER, groupid INTEGER, username VARCHAR(30) , 
+        message VARCHAR(1000) )`, { type: connection.QueryTypes.CREATE })
     .then(msg => {
         console.log("messages table created");
     })
@@ -43,11 +43,11 @@ function RegUser(userObj, callback) {
             type: connection.QueryTypes.INSERT
         })
         .then(user => {
-            callback("Registration Successful");
+            callback({ success: true, message: "Registration Successful" });
         })
         .catch((error) => {
             if (error.name === "SequelizeUniqueConstraintError") {
-                callback("Username, Email or Phone already exists");
+                callback({ success: false, message: "Username, Email or Phone already exists" });
             } else {
                 Error(error);
             }
@@ -61,16 +61,16 @@ function FindOneUser(userObj, callback) {
         })
         .then((user) => {
             if (user.length === 0) {
-                callback("User does not exist");
+                callback({ success: false, message: "User does not exist" });
             } else {
-                callback("You are logged in");
+                callback({ success: true, message: "Welcome" });
             }
         })
         .catch((error) => {
             if (error.name === "SequelizeDatabaseError") {
-                callback("Enter invalid input");
+                callback({ success: false, message: "Enter invalid input" });
             } else {
-                callback({ login: error });
+                Error(error);
             }
         });
 }
@@ -82,9 +82,9 @@ function FindAllUser(callback) {
         })
         .catch((error) => {
             if (error.name === " SequelizeDatabaseError") {
-                callback("Enter invalid input");
+                callback({ success: false, message: "Enter invalid input" });
             } else {
-                callback(error);
+                Error(error);
             }
         });
 }
@@ -98,7 +98,7 @@ function UserGroup(username, callback) {
             callback(groupids);
         })
         .catch((error) => {
-            callback(error);
+            Error(error);
         });
 }
 
@@ -115,7 +115,7 @@ function AddUserToGroup(username, groupId, callback) {
         let index = groupArray.split(" ").indexOf(groupId);
 
         if (index != -1) {
-            callback("User already in this group");
+            callback({ success: false, message: "User already in this group" });
             return;
         }
 
@@ -125,10 +125,10 @@ function AddUserToGroup(username, groupId, callback) {
                 type: connection.QueryTypes.UPDATE
             })
             .then(done => {
-                callback("user added to group");
+                callback({ success: true, message: "user added to group" });
             })
             .catch((error) => {
-                callback(error);
+                Error(error);
             });
     });
 }
@@ -155,12 +155,12 @@ function CreateNewGroup(username, groupname, callback) {
             })
             .then(data => {
                 AddUserToGroup(username, total, (data) => {
-                    callback("Group created");
+                    callback({ success: true, message: "Group created" });
                 });
             })
             .catch((error) => {
                 if (error.name === "SequelizeUniqueConstraintError") {
-                    callback("Group name already exists");
+                    callback({ success: false, message: "Group name already exists" });
                 } else {
                     Error(error);
                 }
@@ -192,7 +192,7 @@ function PostMessage(messageObj, callback) {
                 type: connection.QueryTypes.INSERT
             })
             .then(msg => {
-                callback("Message sent");
+                callback({ success: true, message: "Message sent" });
             })
             .catch((error) => {
                 Error(error);
