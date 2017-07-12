@@ -1,1 +1,11 @@
 node_modules/
+
+.vscode/
+
+client/
+
+test/
+
+webpack.config.js
+
+eslint.rc.json

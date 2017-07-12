@@ -4,6 +4,7 @@
 
 <head>
     <title>Send Message</title>
+    <!-- <link rel="stylesheet" href="../public/bootstrap/bootstrap.min.css"> -->
     <link rel="stylesheet" href="../public/css/style.css">
 </head>
 
@@ -18,7 +19,18 @@
                     <fieldset>
                         <legend>Broadcast</legend>
                         <textarea name="textarea"></textarea>
-                        <button class="button button-primary" type="submit">Send</button>
+
+                        <div>
+                            <button class="button button-primary" type="submit">Send</button>
+                            <div>
+                                <select class="form-control">
+                                    <option>Normal</option>
+                                    <option>Urgent</option>
+                                    <option>Critcal</option>
+                                  </select>
+                            </div>
+
+                        </div>
                     </fieldset>
                 </form>
             </div>

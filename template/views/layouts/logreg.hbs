@@ -3,29 +3,33 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Welcome</title>
-    <!-- <link rel="stylesheet" href="/main.css"> -->
+    {{!-- <link rel="stylesheet" href="/main.css"> --}}
     <link rel="stylesheet" href="/bootstrap.min.css">
 </head>
 
 <body>
     <div class="container">
-        <div class="menu-bar">
-            <div><img src="/andela.jpg" alt="logo" height="60" width="60"></div>
-            <form action="" method="POST">
-                <div>Username:
+        <div class="menu-bar row">
+            <div class="col-md-2"><img src="/andela.jpg" alt="logo" height="60" width="60"></div>
+            <div class="col-md-10">
+                <form action="" method="POST">
+                <div class="col-md-4 col-sm-12">Username:
                     <input class="input-field" type="text" name="username" placeholder="Enter Username"></div>
-                <div>Password:
-                    <input class="input-field" type="password" name="password" placeholder="Enter Password"></div>
-                <div><a href="#">Forgot Password</a></div>
-                <div><button type="submit" class="btn btn-primary">Login</button></div>
+                <div class="col-md-4 col-sm-12">Password:
+                    <input class="input-field" type="password" name="password" placeholder="Enter Password"><br>
+                <a href="#">Forgot Password</a></div>
+                <div class="col-md-2 col-sm-12"><button type="submit" class="btn btn-primary">Login</button></div>
 
             </form>
+            </div>
         </div>
 
         <div class="row">
-            <div class="info col-md-6 reg col-sm-6 reg col-xs-12">
-                <h1>Welcome to Postit</h1><br><br><br>
+            <div class="info col-md-6 reg col-sm-6 reg col-xs-hidden">
+                <h1>Welcome to Postit</h1><br>
                 <div>Postit allows friends and<br> colleagues create groups for <br> notifications. This way one <br> person can post notifications <br> to everyoneby sending a message once. </div>
             </div>
             <div class="reg col-md-6 reg col-sm-6 reg col-xs-12">
@@ -48,6 +52,11 @@
             </div>
         </div>
     </div>
+    <script src="/bundle.js"></script>
+    <script>
+        var size =document.querySelector(document);
+        window.onresize
+    </script>
 </body>
 
 </html>
