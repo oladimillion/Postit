@@ -4,8 +4,6 @@ node_modules/
 
 client/
 
-test/
-
 webpack.config.js
 
 eslint.rc.json

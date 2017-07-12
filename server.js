@@ -46,6 +46,23 @@ app.use(express.static(__dirname + '/template/public/css'));
 app.use(express.static(__dirname + '/template/public/img'));
 app.use(express.static(__dirname + '/template/public/bootstrap'));
 
+
+
+app.get("*", (req, res, next)=>{
+	if ((req.url !== '/') && (!req.session.username)) {
+
+		console.log('checkAuth ' + req.url);
+		
+		return res.status(400).json({ 
+			success: false,
+			message: "Please login" 
+		});
+	}else{
+		next();
+	}
+});
+
+
 app.get("/", (req, res) => {
 	res.render("logreg.hbs");
 });

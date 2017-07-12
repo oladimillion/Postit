@@ -4,7 +4,9 @@
 import {RegUser, FindOneUser} from "../model/model"; 
 
 export default function UserRoutes (app) {
+
 	app.post("/user/signin", (req, res) => {
+
 		// signin route
 		let userObj = {
 			username: req.body.username,
@@ -12,15 +14,16 @@ export default function UserRoutes (app) {
 		};
 
 		let re = /^([a-zA-Z]+[\d]*).{3,}$/;
-		if (!re.test(userObj.username)) {
+		if (!re.test(userObj.username)) {		
 			/* Username  must start with character and 
 			* must be alphabet or alphanumeric 
 			* not less than 4 in length
 			*/
 
-			return res.json({ success: false, message: "Username  must \
-			start with character and must be alphabet or alphanumeric \
-			not less than 4 in length"});
+			return res.status(400).json({ success: false, 
+				message: "Username  must " +
+				"start with character and must be alphabet or alphanumeric "+
+				"not less than 4 in length"});
 		}
 
 		re = /^([a-zA-Z0-9.!#$%'+=*"^&{|}~()`\\?/><,.]){4,}$/;
@@ -29,15 +32,20 @@ export default function UserRoutes (app) {
 			* four in length, can contain digit, alphabet
 			* or special characters
 			*/
-			return res.json({ success: false, 
-				message: "Password must not be less than \
-				four in length, can contain digit, alphabet \
-				or special characters or all" });
+			return res.status(400).json({ success: false, 
+				message: "Password must not be less than "+
+				"four in length, can contain digit, alphabet "+
+				"or special characters or all" });
 		}
 
 		FindOneUser(userObj, (result) => {
 			// verifies user signin data
-			return res.json(result);
+			if(result.success === false){
+        return res.status(400).json(result);
+      }else{
+				req.session.username = userObj.username;
+        return res.status(201).json(result);
+      } 
 		});
 	});
 
@@ -45,7 +53,7 @@ export default function UserRoutes (app) {
 
 		if (req.body.password !== req.body.cpassword) {
 			// makes sure user's password is entered correctly
-			return res.json({ success: false, 
+			return res.status(400).json({ success: false, 
 				message: "Password do not match" });
 		}
 
@@ -66,9 +74,10 @@ export default function UserRoutes (app) {
 			* not less than 4 in length
 			*/
 
-			return res.json({ success: false, message: "Username  must \
-			start with character and must be alphabet or alphanumeric \
-			not less than 4 in length" });
+			return res.status(400).json({ success: false, 
+				message: "Username  must "+
+			"start with character and must be alphabet or alphanumeric "+
+			"not less than 4 in length" });
 		}
 
 		re = /^([a-zA-Z0-9.!#$%'+=*"^&{|}~()`\\?/><,.]){4,30}$/;
@@ -77,32 +86,38 @@ export default function UserRoutes (app) {
 			* four in length, can contain digit, alphabet
 			* or special characters or all
 			*/
-			return res.json({ success: false, 
-				message: "Password must not be less than \
-				four in length, can contain digit, alphabet \
-				or special characters or all"});
+			return res.status(400).json({ success: false, 
+				message: "Password must not be less than "+
+				"four in length, can contain digit, alphabet "+
+				"or special characters or all"});
 		}
 
-		re = /^([+\d]){6,20}$/;
+		re = /^([\d]){6,20}$/;
 		if(!re.test(userObj.phone)){
 			/* Password must not be less than 
 			* four in length, can contain digit, alphabet
 			* or special characters or all
 			*/
-			return res.json({ success: false, 
-				message: "Use +123456 format, length should be between 6 and 20"});
+			return res.status(400).json({ success: false, 
+				message: "Phone no must be digits only,"+
+				" length should be between 6 and 20"});
 		}
 
-		re = /^([A-Za-z0-9.!#$%'+=*"^&{|}~()`\\?/><,.]){2,}@[a-zA-Z0-9-]{2,}(?:\.[a-zA-Z0-9-]{2,})$/;	
+		re = new RegExp("^([A-Za-z0-9.!#$%'+=*\"^&{|}~()`\\?/><,.])"+
+			"{2,}@[a-zA-Z0-9-]{2,}(?:\.[a-zA-Z0-9-]{2,})$");	
 		if (!re.test(userObj.email)) {
 			// verifies user's email
-			return res.json({ success: false, 
+			return res.status(400).json({ success: false, 
 				message: "Invalid email" });
 		}
 
 		RegUser(userObj, (result) => {
 			// creates users account
-			return res.json(result);
+			if(result.success === false){
+        return res.status(400).json(result);
+      }else{
+        return res.status(201).json(result);
+      } 
 		});
 	});
 }

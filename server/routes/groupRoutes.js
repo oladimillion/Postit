@@ -1,66 +1,184 @@
 import {AddUserToGroup, CreateNewGroup}  from "../model/model";
 import {PostMessage, FindGroupMsg, MsgReader}  from "../model/model";
-
+import {GetMsgReaders, FindAllUser} from "../model/model";
 "use strict";
 
 export default function GroupRoutes (app) {
-  //create broadcast group
+
+  app.post("*", (req, res, next)=>{
+    if (!req.session.username) {
+  
+      console.log('checkAuth: ' + req.url);
+      
+      return res.status(400).json({ 
+        success: false,
+        message: "Please login" 
+      });
+
+    }else{
+      next();
+    }
+  });
+  
   app.post("/group", (req, res) => {
-    console.log("body: ", req.body);
 
+   /**  
+    * creates new broadcast group
+    */
+    
     let groupname = req.body.groupname;
-    let username = req.body.username;
+    let username = req.session.username;
 
-    CreateNewGroup(username, groupname, (data) => {
-      return res.json(data);
+    CreateNewGroup(groupname, username, (result) => {
+     /**
+      * inserts groupname and username 
+      * into groups and user_groups tables
+      */ 
+      if(result.success === false){
+        return res.status(400).json(result);
+      }else{
+        return res.status(201).json(result);
+      } 
     });
   });
 
-    //add other users to group
+    
   app.post("/group/:id/user", (req, res) => {
-    AddUserToGroup(req.body.username, req.params.id, (data) => {
-      return res.json(data);
+
+    /**
+     * adds users to a particular
+     * group with the id provided
+     */
+
+    if(req.body.username.length === 0 || 
+      req.params.id != undefined || 
+      isNaN(req.params.id)){
+    
+      /**
+       * ensures all
+       * feilds are provided
+       */
+
+      return res.status(400).json({
+        success: false, 
+        message: "Make sure group id and "+ 
+                "username are provided"
+      });
+    }  
+
+    AddUserToGroup(req.params.id, req.body.username, (result) => {
+
+      /**
+       * inserts username into the
+       * user_groups table
+       */
+
+       if(result.success === false){
+        return res.status(400).json(result);
+      }else{
+        return res.status(201).json(result);
+      } 
     });
   });
 
-    //post message to group
+    
   app.post("/group/:id/message", (req, res) => {
+
+    /**
+     * dispatches message to a
+     * particular group
+     */
+
     let data = {
-      username: req.body.username,
-      groupid: req.params.id,
+      username: req.session.username,
+      group_id: req.params.id,
       message: req.body.message
     };
 
     if(data.message.length === 0){
-      return res.json({
+
+      /**
+       * ensures message 
+       * feild is not empty
+       */
+
+      return res.status(400).json({
         success: false, 
-        message: "You can't send empty message"
+        message: "You can't send blank message"
       });
     }
 
     PostMessage(data, (result) => {
-      return res.json(result);
+      if(result.success === false){
+        return res.status(400).json(result);
+      }else{
+        return res.status(201).json(result);
+      } 
     });
   });
 
-  app.post("/group/:grpid/:msgid/:username", (req, res) => {
+  // TO DO
+  app.post("/group/names/:grp_id/:msg_id", (req, res) => {
     
-    //logs reader name of a particular message in the database
+    /**
+     * logs reader nameS of a 
+     * particular message
+     */
 
-    let data = {
-      groupid: req.params.grpid,
-      usermsgid: req.params.msgid,
-      username: req.params.username
-    }
+    let group_id = req.params.grp_id,
+      msg_id = req.params.msg_id;
+
+      if(msg_id != undefined || 
+        isNaN(msg_id) || 
+        group_id != undefined || 
+        isNaN(group_id)){
     
+      /**
+       * ensures all
+       * feilds are provided
+       */
+
+      return res.status(400).json({
+        success: false, 
+        message: "Make sure group id and "+ 
+                "message id are provided"
+      });
+    }
+
+    GetMsgReaders(msg_id, group_id, (result)=>{
+      if(result.success === false){
+        return res.status(400).json(result);
+      }else{
+        return res.status(201).json(result);
+      }      
+    });    
   });
 
   app.get("/group/:id/message", (req, res) => {
 
-    MsgReader(req.params.id, reg.body.username);
+    let group_id = req.params.id;
 
-    FindGroupMsg(req.params.id, (result)=>{
-      return res.json(result);
+    if(group_id === undefined || 
+      isNaN(group_id)){
+  
+    /**
+     * ensures all
+     * feilds are provided
+     */
+
+    return res.status(400).json({
+      success: false, 
+      message: "Make sure group id "+ 
+              "is provided"
+    });
+  }    
+
+    FindGroupMsg(req.params.id, req.session.username, (result)=>{
+      if(result.success === false){
+        return res.status(400).json(result);
+      }else{
+        return res.status(201).json(result);
+      } 
     });
   });
 

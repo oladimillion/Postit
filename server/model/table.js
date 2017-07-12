@@ -61,7 +61,7 @@ export default function Connection (){
     //table for read_msg    
   connection.query(`CREATE TABLE IF NOT EXISTS read_msg 
     (msg_id INTEGER, group_id INTEGER, 
-      username VARCHAR(30) UNIQUE)`, { 
+      username VARCHAR(30), UNIQUE(msg_id, username))`, { 
     type: connection.QueryTypes.CREATE 
     })
     .then(msg => {
