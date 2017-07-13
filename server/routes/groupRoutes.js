@@ -5,13 +5,24 @@ import {GetMsgReaders, FindAllUser} from "../model/model";
 
 export default function GroupRoutes (app) {
 
+  app.post("/logout", (req, res)=>{
+    req.session.destroy(() => {
+      
+      // logs the user out
+      return res.send({
+        success: true,
+        message : 'You have succesfully logged out'
+      });
+    });
+  });
+
   app.post("*", (req, res, next)=>{
 
     /**
      * makes sure user is logged
      * in before accessing any resource
      */
-    
+
     if (!req.session.username) {
   
       console.log('checkAuth: ' + req.url);
@@ -188,4 +199,5 @@ export default function GroupRoutes (app) {
     });
   });
 
+  
 }
