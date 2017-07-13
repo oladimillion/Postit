@@ -8,6 +8,7 @@ import bodyParser from 'body-parser';
 // import path from "path";
 import UserRoutes from "./server/routes/UserRoutes";
 import GroupRoutes from "./server/routes/GroupRoutes";
+import MainRoutes from "./server/routes/MainRoutes";
 
 // Start Express
 let app = express();
@@ -40,33 +41,8 @@ app.use(express.static(__dirname + '/template/public/css'));
 app.use(express.static(__dirname + '/template/public/img'));
 app.use(express.static(__dirname + '/template/public/bootstrap'));
 
-
-// check users authentication
-app.get("*", (req, res, next)=>{
-	if ((req.url !== '/') && (!req.session.username)) {
-
-		console.log('checkAuth ' + req.url);
-		
-		return res.status(400).json({ 
-			success: false,
-			message: "Please login" 
-		});
-	}else{
-		next();
-	}
-});
-
-//login page route
-app.get("/", (req, res) => {
-	res.send("Welcome to Postit, Please login");
-});
-
-// other pages routes
-app.get("/user/*", (req, res) => {
-	res.send("User pages");
-});
-
-// Loads users and groups routes
+// Loads main, users and groups routes
+MainRoutes(app);
 UserRoutes(router);
 GroupRoutes(router);
 

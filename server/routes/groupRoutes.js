@@ -5,17 +5,6 @@ import {GetMsgReaders, FindAllUser} from "../model/model";
 
 export default function GroupRoutes (app) {
 
-  app.post("/logout", (req, res)=>{
-    req.session.destroy(() => {
-      
-      // logs the user out
-      return res.send({
-        success: true,
-        message : 'You have succesfully logged out'
-      });
-    });
-  });
-
   app.post("*", (req, res, next)=>{
 
     /**
@@ -67,8 +56,7 @@ export default function GroupRoutes (app) {
      * group with the id provided
      */
 
-    if(req.body.username.length === 0 || 
-      req.params.id != undefined || 
+    if(req.params.id != undefined || 
       isNaN(req.params.id)){
     
       /**
@@ -78,12 +66,12 @@ export default function GroupRoutes (app) {
 
       return res.status(400).json({
         success: false, 
-        message: "Make sure group id and "+ 
-                "username are provided"
+        message: "Make sure you are logged in "+ 
+                "the group id is provided"
       });
     }  
 
-    AddUserToGroup(req.params.id, req.body.username, (result) => {
+    AddUserToGroup(req.params.id, req.session.username, (result) => {
 
       /**
        * inserts username into the
@@ -199,5 +187,16 @@ export default function GroupRoutes (app) {
     });
   });
 
+  app.use(function(req, res) {
+      
+      res.status(404);
+      res.send("Sorry page do not exist");
+  });
+
+  app.use(function(err, req, res, next) {
+      console.log(err.stack);
+      res.status(500);
+      res.send('Server error');
+  }); 
   
 }

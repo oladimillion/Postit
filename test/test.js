@@ -1,6 +1,5 @@
 let chai = require('chai'),
     chaiHttp = require('chai-http');
-let app = require("../server");
 
 
 chai.use(chaiHttp);
@@ -9,7 +8,7 @@ let expect = chai.expect;
 
 describe("POST request ", () => {
 
-    let url = "127.0.0.1:8000";
+    let url = "127.0.0.1:3000";
 
     it(" should return status 200", (done) => {
 
@@ -24,7 +23,7 @@ describe("POST request ", () => {
 
     it(" should disallow unregister user", (done) => {
         let user = {
-            username: "paul",
+            username: "112paul",
             password: "1234"
         };
         chai.request(url)
@@ -32,7 +31,8 @@ describe("POST request ", () => {
             .send(user)
             .end(function(err, res) {
                 expect(res.body.success).to.equal(false);
-                expect(res.body.message).to.equal("Username or password must be alphabet or digit not less than 4 in length");
+                expect(res.body.message).to.equal("Username must " +
+				"start with character and must be alphabet or alphanumeric");
                 expect(err).to.be.null;
                 expect(res).to.have.status(200);
                 done();

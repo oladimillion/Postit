@@ -22,7 +22,7 @@ export default function UserRoutes (app) {
 			*/
 
 			return res.status(400).json({ success: false, 
-				message: "Username  must " +
+				message: "Username must " +
 				"start with character and must be alphabet or alphanumeric "+
 				"not less than 4 in length"});
 		}
@@ -42,7 +42,7 @@ export default function UserRoutes (app) {
 		}
 
 		FindOneUser(userObj, (result) => {
-			
+
 			// verifies user signin data
 			if(result.success === false){
         return res.status(400).json(result);
