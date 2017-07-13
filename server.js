@@ -5,8 +5,7 @@ import express from 'express';
 import session from 'express-session';
 import morgan from "morgan";
 import bodyParser from 'body-parser';
-// import hbs from 'hbs';
-import path from "path";
+// import path from "path";
 import UserRoutes from "./server/routes/UserRoutes";
 import GroupRoutes from "./server/routes/GroupRoutes";
 
@@ -30,11 +29,6 @@ app.use(bodyParser.json({ type: 'application/json' }));
 
 // Use Sessions
 app.use(session({ secret: 'andela', resave: false, saveUninitialized: true, cookie: { maxAge: 600000 } }));
-
-//template engine
-// app.set('view engine', 'hbs');
-// app.set("views", __dirname + '/template/views/layouts');
-
 
 /*
 	*  Middlewares
@@ -62,15 +56,15 @@ app.get("*", (req, res, next)=>{
 	}
 });
 
-// login page route
-// app.get("/", (req, res) => {
-// 	res.render("logreg.hbs");
-// });
+//login page route
+app.get("/", (req, res) => {
+	res.send("Welcome to Postit, Please login");
+});
 
-// // other pages routes
-// app.get("/user/*", (req, res) => {
-// 	res.render("main.hbs");
-// });
+// other pages routes
+app.get("/user/*", (req, res) => {
+	res.send("User pages");
+});
 
 // Loads users and groups routes
 UserRoutes(router);
