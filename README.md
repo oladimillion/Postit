@@ -1,4 +1,4 @@
-## Postit  
+# Postit  
 <br>
 
 > Postit is a simple application that allows friends 
@@ -19,7 +19,7 @@
 ## Getting Started
 1. Clone the repository:
 ```
-https://github.com/oladimillion/Postit.git
+git clone https://github.com/oladimillion/Postit.git
 ```
 2. Navigate into the cloned repository folder
 
