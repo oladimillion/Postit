@@ -6,6 +6,12 @@ import {GetMsgReaders, FindAllUser} from "../model/model";
 export default function GroupRoutes (app) {
 
   app.post("*", (req, res, next)=>{
+
+    /**
+     * makes sure user is logged
+     * in before accessing any resource
+     */
+    
     if (!req.session.username) {
   
       console.log('checkAuth: ' + req.url);
@@ -161,16 +167,16 @@ export default function GroupRoutes (app) {
     if(group_id === undefined || 
       isNaN(group_id)){
   
-    /**
-     * ensures all
-     * feilds are provided
-     */
+      /**
+       * ensures group_id
+       * feild is provided
+       */
 
-    return res.status(400).json({
-      success: false, 
-      message: "Make sure group id "+ 
-              "is provided"
-    });
+      return res.status(400).json({
+        success: false, 
+        message: "Make sure group id "+ 
+                "is provided"
+      });
   }    
 
     FindGroupMsg(req.params.id, req.session.username, (result)=>{

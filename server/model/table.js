@@ -5,7 +5,8 @@ const env = process.env.NODE_ENV || 'development';
 const connection = new Sequelize("postit", "postgres", "password", config[env]);
 
 export default function Connection (){
-  //table for the users
+  
+  //creates users table
   connection.query(`CREATE TABLE IF NOT EXISTS users 
     (username VARCHAR(30) UNIQUE, password VARCHAR(30), 
     email VARCHAR(30) UNIQUE, phone VARCHAR(100) UNIQUE)`, { 
@@ -19,7 +20,7 @@ export default function Connection (){
       console.log("users table not created");
     });
   
-  //table for groups
+  //creates groups table
   connection.query(`CREATE TABLE IF NOT EXISTS groups 
     (group_id INTEGER UNIQUE DEFAULT 0, group_name VARCHAR(30) UNIQUE, 
     group_admin VARCHAR(30))`, { 
@@ -32,7 +33,7 @@ export default function Connection (){
       console.log("group table not created");
     });
   
-  //table for messages
+  //create table for messages
   connection.query(`CREATE TABLE IF NOT EXISTS messages 
     (msg_count INTEGER DEFAULT 0, msg_id INTEGER DEFAULT 0,
     group_id INTEGER, sender_name VARCHAR(30), 
@@ -46,7 +47,7 @@ export default function Connection (){
       console.log("messages table not created");
     });
 
-  //table for user_groups
+  //create table for user groups
   connection.query(`CREATE TABLE IF NOT EXISTS user_groups 
       (group_id INTEGER, username VARCHAR(30) UNIQUE)`, { 
       type: connection.QueryTypes.CREATE 
@@ -58,7 +59,7 @@ export default function Connection (){
       console.log("user_groups table not created");
     });
 
-    //table for read_msg    
+  //create table for read messages    
   connection.query(`CREATE TABLE IF NOT EXISTS read_msg 
     (msg_id INTEGER, group_id INTEGER, 
       username VARCHAR(30), UNIQUE(msg_id, username))`, { 
@@ -71,6 +72,5 @@ export default function Connection (){
       console.log("read_msg table not created");
     });
   
-  return connection;
-  
+  return connection;  
 }

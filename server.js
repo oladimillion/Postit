@@ -5,7 +5,7 @@ import express from 'express';
 import session from 'express-session';
 import morgan from "morgan";
 import bodyParser from 'body-parser';
-import hbs from 'hbs';
+// import hbs from 'hbs';
 import path from "path";
 import UserRoutes from "./server/routes/UserRoutes";
 import GroupRoutes from "./server/routes/GroupRoutes";
@@ -32,8 +32,8 @@ app.use(bodyParser.json({ type: 'application/json' }));
 app.use(session({ secret: 'andela', resave: false, saveUninitialized: true, cookie: { maxAge: 600000 } }));
 
 //template engine
-app.set('view engine', 'hbs');
-app.set("views", __dirname + '/template/views/layouts');
+// app.set('view engine', 'hbs');
+// app.set("views", __dirname + '/template/views/layouts');
 
 
 /*
@@ -47,7 +47,7 @@ app.use(express.static(__dirname + '/template/public/img'));
 app.use(express.static(__dirname + '/template/public/bootstrap'));
 
 
-
+// check users authentication
 app.get("*", (req, res, next)=>{
 	if ((req.url !== '/') && (!req.session.username)) {
 
@@ -62,14 +62,15 @@ app.get("*", (req, res, next)=>{
 	}
 });
 
+// login page route
+// app.get("/", (req, res) => {
+// 	res.render("logreg.hbs");
+// });
 
-app.get("/", (req, res) => {
-	res.render("logreg.hbs");
-});
-
-app.get("/user/*", (req, res) => {
-	res.render("main.hbs");
-});
+// // other pages routes
+// app.get("/user/*", (req, res) => {
+// 	res.render("main.hbs");
+// });
 
 // Loads users and groups routes
 UserRoutes(router);
@@ -77,6 +78,7 @@ GroupRoutes(router);
 
 app.use("/api", router);
 
+//starts the server
 app.listen(port, () => {
 	console.log(`Server listening on port ${port}`);
 });

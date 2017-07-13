@@ -1,20 +1,38 @@
-import Connection from "./table";// imports table
+import Connection from "./table";
 
 const connection = Connection(); // Sequelize connection
 
 export function RegUser(userObj, callback) {
   connection.query(`INSERT into users (username, password, phone, email)
     VALUES (?,?,?,?)`, {
+
+      /**
+       * inserts users info into the users table
+       */
+
       replacements: [userObj.username, userObj.password,
         userObj.phone, userObj.email
       ],
       type: connection.QueryTypes.INSERT
     })
     .then(user => {
+
+      /**
+       * user successufully 
+       * registered
+       */
+
       callback({ success: true, 
         message: "Registration Successful" });
     })
     .catch((err) => {
+
+      /**
+       * username, email or phone provided 
+       * by the user is already taken or 
+       * an error has occured
+       */
+
       if (err.name === "SequelizeUniqueConstraintError") {
         callback({ success: false,
           message: "Username, Email or Phone already exists" });
@@ -28,20 +46,43 @@ export function FindOneUser(userObj, callback) {
   connection.query(`
   SELECT username FROM users 
   WHERE username = ? and password = ?`, {
+
+    /** 
+     * verifies user login
+     * information
+    */
+
       replacements: [userObj.username, userObj.password],
       type: connection.QueryTypes.SELECT
     })
     .then((user) => {
       if (user.length === 0) {
+
+      /**
+       * data provided by the user 
+       * could not be validated
+       */
+
         callback({ success: false, 
           message: "Authentication failed" });
       } else {
+
+        /**
+         * user's login info is valid
+         */
+
         callback({ success: true, message: "Welcome" });
       }
     })
     .catch((err) => {
+
+      /**
+       * error due to invalid input
+       */
+
       if (err.name === "SequelizeDatabaseError") {
-        callback({ success: false, message: "You entered invalid input" });
+        callback({ success: false, 
+          message: "You entered invalid input" });
       } else {
         throw err;
       }
@@ -49,12 +90,24 @@ export function FindOneUser(userObj, callback) {
 }
 
 export function FindAllUser(callback) {
-  connection.query(`SELECT * FROM users`, { type: connection.QueryTypes.SELECT })
+  connection.query(`SELECT username, phone, 
+  email FROM users`, { type: connection.QueryTypes.SELECT })
     .then(user => {
-      console.log(user);
+
+      /**
+       * returns username, phone, 
+       * email of all users
+       * present in the users table
+       */
+
       callback(user);
     })
     .catch((err) => {
+
+      /**
+      * error due to invalid input
+      */
+
       if (err.name === "SequelizeDatabaseError") {
         callback({ success: false, message: "Enter invalid input" });
       } else {
@@ -63,34 +116,37 @@ export function FindAllUser(callback) {
     });
 }
 
-export function UserGroup(username, callback) {
-  connection.query(`SELECT group_id FROM user_groups
-   WHERE username = ? `, {
-        replacements: [username],
-        type: connection.QueryTypes.SELECT
-    })
-    .then(groupids => {
-      callback(groupids);
-    })
-    .catch((err) => {
-      throw err;
-    });
-}
-
 export function GetGroupNames(usernames, callback){
   connection.query(`SELECT group_name FROM groups
   WHERE groups.group_id = user_groups.group_id 
   AND username = ? `, {
+
+    /**
+     * returns the names of groups a 
+     * user belongs to
+     */
+
        replacements: [username],
        type: connection.QueryTypes.SELECT
    })
    .then(group_names => {
     if(group_name == 0){
+
+      /**
+       * user do not belong 
+       * to any group
+       */
+
       callback({
         success: false,
         message: "No group available"
       });
     }else{
+
+      /**
+       * lists group names a user belong
+       */
+
       callback({success: true, message: group_names});
      }
    })
@@ -103,14 +159,34 @@ export function AddUserToGroup( group_id, username, callback) {
   
   connection.query(`INSERT into user_groups 
   (group_id, username) VALUES (?,?)`, {
+
+    /**
+     * adds a user to a 
+     * particular group
+     */
+
     replacements: [group_id, username],
       type: connection.QueryTypes.INSERT
     })
     .then(done => {
+
+      /**
+       * user is successfully 
+       * added to group
+       */
+
       callback({ success: true, 
         message: username + " added to group" });
     })
     .catch((err) => {
+
+      /**
+       * user already exist
+       * in the specified
+       * group or an error 
+       * has occured
+       */
+
       if (err.name === "SequelizeUniqueConstraintError") {
         callback({ success: false, 
           message: username + " already in this group" });
@@ -120,23 +196,16 @@ export function AddUserToGroup( group_id, username, callback) {
     });
  }
 
- export function TotalNumGroups(callback) {
-  connection.query(`SELECT COUNT(group_id) FROM groups`, {
-      type: connection.QueryTypes.SELECT
-    })
-    .then((total) => {
-      callback(total);
-    })
-    .catch((err) => {
-      throw err;
-    });
-}
-
 export function CreateNewGroup( group_name, username, callback) {
   
   connection.query(`INSERT into groups 
   (group_id, group_name, group_admin) 
   VALUES ((SELECT COUNT(group_id) FROM groups)+1,?,?)`, {
+
+    /**
+     * creates new group
+     */
+
     replacements: [group_name, username],
       type: connection.QueryTypes.INSERT
     })
@@ -146,10 +215,21 @@ export function CreateNewGroup( group_name, username, callback) {
       (group_id, username) 
       VALUES ((SELECT group_id FROM groups 
         WHERE group_name = ?) , ?)`, {
+
+          /**
+           * registers the group creator
+           * as the group admin
+           */
+
           replacements: [group_name, username],
           type: connection.QueryTypes.INSERT
         })
         .then(data => {
+
+          /**
+           * group successfully created
+           */
+
           callback({ 
             success: true, 
             message: "Group created"
@@ -158,6 +238,12 @@ export function CreateNewGroup( group_name, username, callback) {
         
     })
     .catch((err) => {
+
+      /**
+       * group name already exist 
+       * or an error has occured
+       */
+
       if (err.name === "SequelizeUniqueConstraintError") {
         callback({ 
           success: false, 
@@ -174,11 +260,24 @@ export function PostMessage(messageObj, callback) {
 
   connection.query(`SELECT username FROM user_groups
   WHERE group_id = ? AND username = ?`, {
+
+    /**
+     * verifies whether user 
+     * belong to the group
+     * his message targets
+     */
+
     replacements: [messageObj.group_id, messageObj.username],
       type: connection.QueryTypes.SELECT
   })
   .then((result)=>{
     if(result.length === 0){
+
+      /**
+       * user do belong to the group
+       * he is forwarding his message
+       */
+
       callback({
         success: false,
         message: "You are not in this group, so can't post message"
@@ -186,10 +285,18 @@ export function PostMessage(messageObj, callback) {
     }else{
       
       connection.query(`INSERT into messages 
-      (msg_count, msg_id, group_id, sender_name, message) VALUES (
-        (SELECT COUNT(msg_count) + 1 FROM messages WHERE group_id = ? ), 
+      (msg_count, msg_id, group_id, 
+        sender_name, message) VALUES (
+      (SELECT COUNT(msg_count) + 1 FROM 
+        messages WHERE group_id = ? ),
         (SELECT COUNT(msg_id) + 1 FROM messages WHERE
           group_id = ?  AND sender_name = ?) , ?, ?, ?)`, {
+
+            /**
+             * addresses message to
+             * concerned group
+             */
+
           replacements: [messageObj.group_id, 
             messageObj.group_id, 
             messageObj.username,
@@ -200,6 +307,12 @@ export function PostMessage(messageObj, callback) {
           type: connection.QueryTypes.INSERT
         })
         .then(msg => {
+
+          /**
+           * message successfully
+           * dispatched
+           */
+          
           callback({ success: true, message: "Message sent"});
           return;
         })
@@ -266,27 +379,54 @@ export function FindGroupMsg(group_id, username, callback) {
 
   connection.query(`SELECT username FROM user_groups
   WHERE group_id = ? AND username = ?`, {
+
+    /**
+    * verifies whether user 
+    * belong to the group
+    * he tries to retrieve 
+    * message
+    */
+
     replacements: [group_id, username],
       type: connection.QueryTypes.SELECT
   })
   .then((result)=>{
     if(result.length === 0){
+
+      /**
+       * non-group member is
+       * disallowed to retrieve
+       * message from group they 
+       * do not belong
+       */
+
       callback({
         success: false,
-        message: "You are not in this group"
+        message: "You are not a member of this group"
       });
     }else{
   
-      connection.query(`SELECT message, username FROM messages 
+      connection.query(`SELECT message, sender_name FROM messages 
       WHERE group_id = ?`, { replacements: [group_id], type: connection.QueryTypes.SELECT })
         .then(msg => {
           if(msg.length == 0){
+
+            /**
+             * selected group has
+             * no message
+             */
+
             let data = {
               success: false,
               message: "No message available for this group"
             }
             callback(data);
           }else{
+
+            /**
+             * returns group messages
+             */
+
             callback({
               success: true,
               message: msg
@@ -299,5 +439,3 @@ export function FindGroupMsg(group_id, username, callback) {
     }
   });
 }
-
-

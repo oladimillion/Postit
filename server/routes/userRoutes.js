@@ -14,7 +14,8 @@ export default function UserRoutes (app) {
 		};
 
 		let re = /^([a-zA-Z]+[\d]*).{3,}$/;
-		if (!re.test(userObj.username)) {		
+		if (!re.test(userObj.username)) {	
+
 			/* Username  must start with character and 
 			* must be alphabet or alphanumeric 
 			* not less than 4 in length
@@ -28,10 +29,12 @@ export default function UserRoutes (app) {
 
 		re = /^([a-zA-Z0-9.!#$%'+=*"^&{|}~()`\\?/><,.]){4,}$/;
 		if(!re.test(userObj.password)){
+
 			/* Password must not be less than 
 			* four in length, can contain digit, alphabet
 			* or special characters
 			*/
+
 			return res.status(400).json({ success: false, 
 				message: "Password must not be less than "+
 				"four in length, can contain digit, alphabet "+
@@ -39,6 +42,7 @@ export default function UserRoutes (app) {
 		}
 
 		FindOneUser(userObj, (result) => {
+			
 			// verifies user signin data
 			if(result.success === false){
         return res.status(400).json(result);
@@ -58,8 +62,10 @@ export default function UserRoutes (app) {
 		}
 
 		/* 
-		* filters out user registration data before insertion into ehe datbase
+		* filters out user registration data 
+		* before insertion into ehe datbase
 		*/
+
 		let userObj = {
 			username: req.body.username,
 			phone: req.body.phone,
@@ -69,6 +75,7 @@ export default function UserRoutes (app) {
 
 		let re = /^([a-zA-Z]+[\d]*).{3,30}$/;
 		if (!re.test(userObj.username)) {
+
 			/* Username  must start with character and 
 			* must be alphabet or alphanumeric 
 			* not less than 4 in length
@@ -82,10 +89,12 @@ export default function UserRoutes (app) {
 
 		re = /^([a-zA-Z0-9.!#$%'+=*"^&{|}~()`\\?/><,.]){4,30}$/;
 		if(!re.test(userObj.password)){
+
 			/* Password must not be less than 
 			* four in length, can contain digit, alphabet
 			* or special characters or all
 			*/
+
 			return res.status(400).json({ success: false, 
 				message: "Password must not be less than "+
 				"four in length, can contain digit, alphabet "+
@@ -94,10 +103,12 @@ export default function UserRoutes (app) {
 
 		re = /^([\d]){6,20}$/;
 		if(!re.test(userObj.phone)){
+
 			/* Password must not be less than 
 			* four in length, can contain digit, alphabet
 			* or special characters or all
 			*/
+
 			return res.status(400).json({ success: false, 
 				message: "Phone no must be digits only,"+
 				" length should be between 6 and 20"});
@@ -106,13 +117,17 @@ export default function UserRoutes (app) {
 		re = new RegExp("^([A-Za-z0-9.!#$%'+=*\"^&{|}~()`\\?/><,.])"+
 			"{2,}@[a-zA-Z0-9-]{2,}(?:\.[a-zA-Z0-9-]{2,})$");	
 		if (!re.test(userObj.email)) {
+
 			// verifies user's email
+
 			return res.status(400).json({ success: false, 
 				message: "Invalid email" });
 		}
 
 		RegUser(userObj, (result) => {
+
 			// creates users account
+
 			if(result.success === false){
         return res.status(400).json(result);
       }else{
