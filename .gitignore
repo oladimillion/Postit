@@ -6,6 +6,6 @@ client/
 
 webpack.config.js
 
-eslint.rc.json
+.eslintrc.json
 
 webpack.config - Copy.js

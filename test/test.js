@@ -1,6 +1,9 @@
-const asserts = require('chai').assert;
-const request = require('supertest');
-const app = require('./server.js');
+import chai from "chai"
+
+const asserts = chai.assert;
+import request from 'supertest';
+
+import app from '../server';
 
 describe('Signup tests', () => {
 
