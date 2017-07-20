@@ -8,4 +8,9 @@ webpack.config.js
 
 .eslintrc.json
 
-webpack.config - Copy.js
+webpack.config 
+
+server/controllers/testctrl.js
+
+seed.js
+
