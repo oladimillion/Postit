@@ -1,44 +1,44 @@
-import db from "../connection"
+import db from "../models/db"
 
 const Messages = db.Messages;
+const GroupMessages = db.GroupMessages;
 
 export function PostMessage(req, res) {
-
-  Groups.findAll({
-    where: {
-      groupId: req.params.id
-    }
-  }).then(data => {
-    if (data.length != 0) {
-      Messages.create({
-          message: req.body.message,
-          username: req.session.username,
+  Messages.findAll({}).then(data => {
+    Messages.create({
+        messageId: data.length + 1,
+        message: req.body.message,
+        groupId: req.params.id
+      })
+      .then((message) => {
+        GroupMessages.create({
+          userId: req.session.userId,
+          messageId: message.messageId,
           groupId: req.params.id
-        })
-        .then((data) => {
-          if (data) {
-            return res.status(201).json({
-              success: true,
-              message: "Message sent"
-            });
-          }
-        })
-        .catch((error) => {
-          return res.status(400).json({
+        }).then((result) => {
+          return res.status(201).json({
             success: true,
-            message: error.errors[0].message
+            message: "Message sent"
           });
         });
-    } else {
-      return res.status(400).json({
-        success: false,
-        message: "Group does not exist"
+      })
+      .catch((error) => {
+        if (error.name === "SequelizeValidationError") {
+          return res.status(400).json({
+            success: false,
+            message: "Message field cannot be empty"
+          });
+        } else if (error.name === "SequelizeForeignKeyConstraintError") {
+          return res.status(400).json({
+            success: false,
+            message: `Group does not exist`
+          });
+        } else {
+          return res.status(400).json({
+            success: false,
+            message: error
+          });
+        }
       });
-    }
-
-  }).catch((error) => {
-    return res.json({
-      error: error
-    })
   });
 }

@@ -3,38 +3,22 @@
 export default (sequelize, DataTypes) => {
   const Messages = sequelize.define('Messages', {
     messageId: {
+      type: DataTypes.INTEGER,
       allowNull: false,
-      autoIncrement: true,
-      primaryKey: true,
-      type: DataTypes.INTEGER
+      primaryKey: true
     },
     groupId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
         notEmpty: {
-          msg: "Please provide the group id"
+          msg: "Please login in first"
         },
-        notNull: {
-          msg: "Please provide the group id"
-        }
-      }
-    },
-    username: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notEmpty: {
-          msg: "Please login first"
-        },
-        notNull: {
-          msg: "Please login first"
-        }
-      }
+      },
     },
     message: {
       allowNull: false,
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       notNull: {
         msg: "Message field cannot be empty"
       },
@@ -47,21 +31,20 @@ export default (sequelize, DataTypes) => {
       }
     },
 
-  }, {
-    setterMethods: {
-      setData: (username, message) => {
-        this.username = username;
-        this.message = message;
-      }
-    }
   });
 
-  Messages.associate = (models) => {
-    // 1 to many with board
-    Messages.belongsTo(models.Groups, {
-      foreignKey: 'groupId',
-    });
-  }
+  // Messages.associate = (models) => {
+
+  //   Messages.belongsToMany(models.Users, {
+  //     through: "UserMessages"
+  //   });
+
+  //   // 1 to many with board
+  //   Messages.belongsToMany(models.Groups, {
+  //     through: "GroupMessages"
+  //   });
+
+  // }
 
   return Messages;
 }

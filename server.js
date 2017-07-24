@@ -5,7 +5,7 @@ import bodyParser from 'body-parser';
 
 import path from "path";
 
-import db from "./server/connection";
+import db from "./server/models/db";
 
 import {
 	api
@@ -26,7 +26,7 @@ app.use(morgan('dev'));
 // Use Body Parse to encode request to json
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
-	extended: false
+	extended: true
 }));
 app.use(bodyParser.text());
 app.use(bodyParser.json({
@@ -55,7 +55,7 @@ app.use(express.static(__dirname + '/template/public/bootstrap'));
 
 // check users authentication
 app.get("*", (req, res, next) => {
-	if ((req.url !== '/') && (!req.session.username)) {
+	if ((req.url !== '/') && (!req.session.userId)) {
 
 		console.log('checkAuth ' + req.url);
 
@@ -96,6 +96,9 @@ app.get("/logout", (req, res) => {
 
 // Loads api routes
 app.use("/api", api());
+
+
+export default app;
 
 //starts the server
 const server = app.listen(port, () => {

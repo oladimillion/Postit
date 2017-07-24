@@ -4,7 +4,8 @@ const app = express.Router();
 
 import {
 	OneUser,
-	AllGroups
+	AllGroups,
+	usermessages
 } from "../controllers/testctrl"
 
 import {
@@ -13,21 +14,27 @@ import {
 } from "../controllers/userctrl";
 
 import {
-	NewGroup
+	NewGroup,
 } from "../controllers/groupctrl";
 
 import {
-	PostMessage
+	JoinGroup
+} from "../controllers/usergroupsctrl.js"
+
+import {
+	PostMessage,
 } from "../controllers/messagectrl";
 
 import {
-	JoinGroup
-} from "../controllers/usergroupsctrl.js";
+	GetGroupMessages
+} from "../controllers/groupmessagectrl.js";
+
 
 export function api() {
 
 	app.get("/test/oneuser", OneUser);
-	app.get("/test/allgroups", AllGroups);
+	app.get("/test/:id/allgroups", AllGroups);
+	app.get("/test/:id/usermessages", usermessages);
 
 	app.post("/user/signin", SignIn);
 	app.post("/user/signup", SignUp);
@@ -39,7 +46,7 @@ export function api() {
 		 * in before accessing any resource
 		 */
 
-		if (!req.session.username) {
+		if (!req.session.userId) {
 
 			console.log('checkAuth: ' + req.url);
 
@@ -56,6 +63,7 @@ export function api() {
 	app.post("/group", NewGroup);
 	app.post("/group/:id/user", JoinGroup);
 	app.post("/group/:id/message", PostMessage);
+	app.get("/group/:id/message", GetGroupMessages);
 
 	return app;
 }

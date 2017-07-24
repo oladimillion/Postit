@@ -1,13 +1,11 @@
 'use strict';
 
-
 export default (sequelize, DataTypes) => {
   const Users = sequelize.define('Users', {
     userId: {
+      type: DataTypes.INTEGER,
       allowNull: false,
-      autoIncrement: true,
-      primaryKey: true,
-      type: DataTypes.INTEGER
+      primaryKey: true
     },
     username: {
       allowNull: false,
@@ -79,23 +77,21 @@ export default (sequelize, DataTypes) => {
           }
         },
       }
-    },
-    createdAt: {
-      allowNull: false,
-      type: DataTypes.DATE
-    },
-    updatedAt: {
-      allowNull: false,
-      type: DataTypes.DATE
     }
   });
 
-  Users.associate = (models) => {
-    // 1 to many with board
-    Users.hasMany(models.Messages, {
-      foreignKey: 'messageId',
-    });
-  }
+  // Users.associate = (models) => {
+  //   // 1 to many with board
+  //   Users.hasMany(models.Messages, {
+  //     foreignKey: 'messageId',
+  //   });
+
+  // Users.belongsToMany(models.Groups, {
+  //   as: "member",
+  //   foreignKey: 'userId',
+  //   through: "UserGroups"
+  // });
+
 
   return Users;
 }

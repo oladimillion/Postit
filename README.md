@@ -29,4 +29,4 @@ $ npm install
 ```
 4. run `node server` to start the server
 
-5. enter `http://localhost:3000` in your browser use the app
+5. enter `http://localhost:3000` in your browser's address bar to use the app

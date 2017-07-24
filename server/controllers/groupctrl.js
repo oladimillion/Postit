@@ -1,29 +1,39 @@
-import db from "../connection"
+import db from "../models/db"
 
 const Groups = db.Groups;
 const UserGroups = db.UserGroups;
-const Users = db.Users;
 
 export function NewGroup(req, res) {
-  Groups.create({
-      group_name: req.body.groupname,
-      group_admin: req.session.username,
-    })
-    .then((data) => {
-      UserGroups.create({
-        groupId: data.groupId,
-        username: req.session.username,
-      }).then((result) => {
-        return res.status(200).json({
-          success: true,
-          message: "Group successfully created"
-        });
+  Groups.findAll({}).then(data => {
+    Groups.create({
+        groupId: data.length + 1,
+        groupName: req.body.groupname,
+        userId: req.session.userId,
       })
-    })
-    .catch((error) => {
-      return res.status(400).json({
-        success: false,
-        message: error.errors[0].message
+      .then((group) => {
+        UserGroups.create({
+            userId: group.userId,
+            groupId: group.groupId
+          })
+          .then((result) => {
+            return res.status(201).json({
+              success: true,
+              message: "Group successfully created"
+            })
+          })
+      })
+      .catch((error) => {
+        if (error.errors[0].message === "") {
+          return res.status(400).json({
+            success: false,
+            message: "Please provide a group name"
+          });
+        } else {
+          return res.status(400).json({
+            success: false,
+            message: error.errors[0].message
+          });
+        }
       });
-    });
+  });
 }

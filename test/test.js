@@ -3,7 +3,7 @@ import chai from "chai"
 const asserts = chai.assert;
 import request from 'supertest';
 
-import app from '../server';
+import app from "../server";
 
 describe('Signup tests', () => {
 
@@ -14,11 +14,13 @@ describe('Signup tests', () => {
     });
   });
 
-  it('should validate input parameters are  username,email and password', (done) => {
+  it(`should validate input parameters are  username, email, 
+    phone, password and cpassword`, (done) => {
     let data = {
       'username': 'gbenga_ps',
       'password': 'some password',
-      'email': 'ioyetade@gmail.com'
+      'email': 'ioyetade@gmail.com',
+      "phone": "08023181783"
     };
     request(app).post('/api/user/signup').send(data).end((err, res) => {
       asserts.equal(res.body, true);

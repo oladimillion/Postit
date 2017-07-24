@@ -3,12 +3,20 @@
 export default (sequelize, DataTypes) => {
   const Groups = sequelize.define('Groups', {
     groupId: {
+      type: DataTypes.INTEGER,
       allowNull: false,
-      autoIncrement: true,
-      primaryKey: true,
-      type: DataTypes.INTEGER
+      primaryKey: true
     },
-    group_name: {
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: "Please login in first"
+        },
+      },
+    },
+    groupName: {
       allowNull: false,
       unique: {
         msg: "Group name already exist"
@@ -22,32 +30,21 @@ export default (sequelize, DataTypes) => {
           args: [6, 20],
           msg: "Group name should be between 6 and 20"
         },
-        length: (msg) => {
-          if (msg.length < 1) {
-            throw new Error("Group name field cannot be empty");
-          }
-        }
-      }
-    },
-    group_admin: {
-      allowNull: false,
-      type: DataTypes.STRING,
-      validate: {
-        notEmpty: {
-          msg: "Make sure are logged in"
-        },
-        len: {
-          args: [6, 20],
-          msg: "Username should be between 6 and 20"
-        },
-        length: (msg) => {
-          if (msg.length < 1) {
-            throw new Error("Make sure are logged in");
-          }
-        }
       }
     },
 
   });
+
+  // Groups.associate = (models) => {
+  //   // 1 to many with board
+  //   Groups.hasMany(models.Messages, {
+  //     foreignKey: 'messageId',
+  //   });
+
+  //   Groups.belongsToMany(models.Users, {
+  //     through: "UserGroups"
+  //   });
+  // }
+
   return Groups;
 }

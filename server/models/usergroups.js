@@ -1,34 +1,15 @@
 export default (sequelize, DataTypes) => {
   const UserGroups = sequelize.define('UserGroups', {
-    id: {
+    userId: {
+      type: DataTypes.INTEGER,
       allowNull: false,
-      autoIncrement: true,
-      primaryKey: true,
-      type: DataTypes.INTEGER
-    },
-    username: {
-      allowNull: false,
-      type: DataTypes.STRING,
-      unique: "uniqueUserGroups",
-      validate: {
-        notEmpty: {
-          msg: "Please login first"
-        },
-      }
+      unique: "unique",
     },
     groupId: {
       allowNull: false,
+      unique: "unique",
       type: DataTypes.INTEGER,
-      unique: "uniqueUserGroups"
     }
   });
-
-  UserGroups.associate = (models) => {
-    // 1 to many with board
-    UserGroups.belongsTo(models.Groups, {
-      foreignKey: 'groupId',
-    });
-  }
-
   return UserGroups;
 }
