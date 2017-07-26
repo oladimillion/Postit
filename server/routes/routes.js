@@ -31,9 +31,9 @@ import {
 
 
 
-route.get("/test/oneuser", OneUser);
-route.get("/test/:id/allgroups", AllGroups);
-route.get("/test/:id/usermessages", usermessages);
+// route.get("/test/oneuser", OneUser);
+// route.get("/test/:id/allgroups", AllGroups);
+// route.get("/test/:id/usermessages", usermessages);
 
 route.post("/user/signin", SignIn);
 route.post("/user/signup", SignUp);
