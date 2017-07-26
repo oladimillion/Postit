@@ -4,7 +4,7 @@
 	"description": "",
 	"main": "server.js",
 	"scripts": {
-		"ci": "./node_modules/mocha/mocha.js --require babel-polyfill --compilers js:babel-register test/test.js",
+		"ci": "/node_modules/mocha/mocha.js --require babel-polyfill --compilers js:babel-register test/test.js",
 		"test": "mocha --require babel-polyfill --compilers js:babel-register test/test.js",
 		"resetdb": "babel-node seed.js",
 		"start": "nodemon --exec \"babel-node server.js\"",
