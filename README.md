@@ -1,4 +1,4 @@
-# Postit  
+# Postit  [![Build Status](https://travis-ci.org/oladimillion/Postit.svg?branch=test_branch)](https://travis-ci.org/oladimillion/Postit)
 <br>
 
 > Postit is a simple application that allows friends 
