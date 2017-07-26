@@ -2,11 +2,11 @@ import express from "express";
 
 const route = express.Router();
 
-import {
-	OneUser,
-	AllGroups,
-	usermessages
-} from "../controllers/testctrl"
+// import {
+// 	OneUser,
+// 	AllGroups,
+// 	usermessages
+// } from "../controllers/testctrl"
 
 import {
 	SignIn,
@@ -28,7 +28,6 @@ import {
 import {
 	GetGroupMessages
 } from "../controllers/groupmessagectrl.js";
-
 
 
 
