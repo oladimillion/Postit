@@ -23,7 +23,7 @@ cache:
     - "node_modules"
 
 after_success:
-- npm run cover
+  - npm run cover
 
 after_script: 
   - nyc npm test && nyc report --reporter=text-lcov | coveralls
