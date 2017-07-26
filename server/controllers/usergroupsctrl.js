@@ -4,6 +4,27 @@ const UserGroups = db.UserGroups;
 const Groups = db.Groups;
 
 export function JoinGroup(req, res) {
+
+  if (!req.params.id) {
+    return res.status(400).json({
+      success: false,
+      message: "Please provide valid group id"
+    });
+
+  } else if (!req.body.userId) {
+    return res.status(400).json({
+      success: false,
+      message: "Please provide valid user id"
+    });
+
+  } else if (!req.session.userId) {
+    return res.status(400).json({
+      success: false,
+      message: "Please login"
+    });
+
+  }
+
   UserGroups.create({
       /**
        * adds the user to 

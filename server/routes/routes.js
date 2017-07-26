@@ -1,6 +1,6 @@
 import express from "express";
 
-const app = express.Router();
+const route = express.Router();
 
 import {
 	OneUser,
@@ -30,40 +30,40 @@ import {
 } from "../controllers/groupmessagectrl.js";
 
 
-export function api() {
 
-	app.get("/test/oneuser", OneUser);
-	app.get("/test/:id/allgroups", AllGroups);
-	app.get("/test/:id/usermessages", usermessages);
 
-	app.post("/user/signin", SignIn);
-	app.post("/user/signup", SignUp);
+route.get("/test/oneuser", OneUser);
+route.get("/test/:id/allgroups", AllGroups);
+route.get("/test/:id/usermessages", usermessages);
 
-	app.post("*", (req, res, next) => {
+route.post("/user/signin", SignIn);
+route.post("/user/signup", SignUp);
 
-		/**
-		 * makes sure user is logged
-		 * in before accessing any resource
-		 */
+// route.post("*", (req, res, next) => {
 
-		if (!req.session.userId) {
+// 	/**
+// 	 * makes sure user is logged
+// 	 * in before accessing any resource
+// 	 */
 
-			console.log('checkAuth: ' + req.url);
+// 	if (!req.session.userId) {
 
-			return res.status(400).json({
-				success: false,
-				message: "Please login"
-			});
+// 		console.log('checkAuth: ' + req.url);
 
-		} else {
-			next();
-		}
-	});
+// 		return res.status(400).json({
+// 			success: false,
+// 			message: "Please login"
+// 		});
 
-	app.post("/group", NewGroup);
-	app.post("/group/:id/user", JoinGroup);
-	app.post("/group/:id/message", PostMessage);
-	app.get("/group/:id/message", GetGroupMessages);
+// 	} else {
+// 		next();
+// 	}
+// });
 
-	return app;
-}
+
+route.post("/group", NewGroup);
+route.post("/group/:id/user", JoinGroup);
+route.post("/group/:id/message", PostMessage);
+route.get("/group/:id/message", GetGroupMessages);
+
+export default route;

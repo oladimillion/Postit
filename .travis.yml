@@ -1,3 +1,5 @@
 langurage: node_js,
 node_js:
 - "stable"
+
+script: npm run test

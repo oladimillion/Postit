@@ -7,9 +7,7 @@ import path from "path";
 
 import db from "./server/models/db";
 
-import {
-	api
-} from "./server/routes/routes";
+import route from "./server/routes/routes";
 
 
 // Start Express
@@ -94,8 +92,8 @@ app.get("/logout", (req, res) => {
 	});
 });
 
-// Loads api routes
-app.use("/api", api());
+// Loads route routes
+app.use("/api", route);
 
 
 export default app;

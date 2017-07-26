@@ -6,6 +6,15 @@ const Groups = db.Groups;
 const GroupMessages = db.GroupMessages;
 
 export function GetGroupMessages(req, res) {
+
+  if (!req.session.userId) {
+    return res.status(400).json({
+      success: false,
+      message: "Please login"
+    });
+
+  }
+
   GroupMessages.findAll({
     where: {
       groupId: req.params.id
