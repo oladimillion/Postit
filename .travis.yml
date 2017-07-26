@@ -1,14 +1,22 @@
 language: node_js
+
+sudo: required
+
 node_js:
+  - "node"
   - "6"
 
 services:
   - postgresql
 
+before_install:
+  - npm install -g sequelize
+
+install:
+  - npm install
+
 before_script:
   - psql -c 'create database postit;' -U postgres
-  - npm  install -g sequelize
-  - npm  install
 
 cache:
   directories:
@@ -16,6 +24,7 @@ cache:
 
 after_success:
 - npm run cover
+
 after_script: 
   - nyc npm test && nyc report --reporter=text-lcov | coveralls
 
