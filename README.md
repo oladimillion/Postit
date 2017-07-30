@@ -1,18 +1,18 @@
-# Postit      [![Build Status](https://travis-ci.org/oladimillion/Postit.svg?branch=test_branch)](https://travis-ci.org/oladimillion/Postit)
+# Postit      [![Build Status](https://travis-ci.org/oladimillion/Postit.svg?branch=test_branch)](https://travis-ci.org/oladimillion/Postit)      [![Coverage Status](https://coveralls.io/repos/github/oladimillion/Postit/badge.svg)](https://coveralls.io/github/oladimillion/Postit)
 <br>
 
 > Postit is a simple application that allows friends 
 > and colleagues create groups for notifications.
 > This way one person can post notifications to 
-> everyone by sending a message once. <br>
+> everyone by sending a message once. 
 
+<br>
 ### This application 
 - allows people create accounts, 
 - create groups,
 - add registered users to the groups, 
 - send messasges out to these groups whenever they want.
 
-<br>
 <br>
 <br>
 

@@ -2,6 +2,8 @@ import {
 	Sequelize
 } from "sequelize";
 
+import bcrypt from "bcrypt-nodejs"
+
 import config from "../config/config.json";
 
 const env = config["development"];
@@ -20,7 +22,13 @@ const db = {
 	GroupMessages: sequelize.import("./groupmessages"),
 };
 
-//Messages' one to one associate with Groups
+// hashes users' password before it's store 
+// in the database
+db.Users.hook('afterValidate', (user, options) => {
+	user.password =  bcrypt.hashSync(user.password);
+});
+
+// Messages' one to one associate with Groups
 db.Messages.belongsTo(db.Groups, {
 	foreignKey: "groupId",
 })
@@ -30,22 +38,22 @@ db.UserGroups.belongsTo(db.Groups, {
 	foreignKey: "groupId",
 });
 
-//UserGroups' one to one association with Users
+// UserGroups' one to one association with Users
 db.UserGroups.belongsTo(db.Users, {
 	foreignKey: "userId",
 });
 
-//GroupMessages' one to one association with Groups
+// GroupMessages' one to one association with Groups
 db.GroupMessages.belongsTo(db.Groups, {
 	foreignKey: "groupId",
 });
 
-//GroupMessages' one to one association with Users
+// GroupMessages' one to one association with Users
 db.GroupMessages.belongsTo(db.Users, {
 	foreignKey: "userId",
 });
 
-//GroupMessages' one to one association with Messages
+// GroupMessages' one to one association with Messages
 db.GroupMessages.belongsTo(db.Messages, {
 	foreignKey: "messageId",
 })
