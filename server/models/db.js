@@ -8,11 +8,7 @@ import config from "../config/config.json";
 
 const env = config["development"];
 
-const sequelize = new Sequelize(env.database, env.username, env.password, {
-	host: env.host,
-	dialect: env.dialect,
-	logging: false
-});
+const sequelize = new Sequelize('postgres://ajczrsyb:o0Q7CfkhRuWIKYi6hi3qYbXpgsu0ksYJ@stampy.db.elephantsql.com:5432/ajczrsyb');
 
 const db = {
 	Users: sequelize.import("./users"),
