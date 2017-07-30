@@ -30,12 +30,7 @@ export function SignUp(req, res) {
 			});
 		})
 		.catch((error) => {
-			if (error.errors.name == "SequelizeDatabaseError") {
-				return res.status(400).json({
-					success: false,
-					message: error.errors[0].message
-				});
-			} else if (error.errors[0].message == "") {
+			if (error.errors[0].message == "") {
 				return res.status(400).json({
 					success: false,
 					message: "All fields are required!"
