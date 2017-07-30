@@ -29,7 +29,7 @@ describe('Signup route tests', () => {
 		request.post('/api/user/signup').send(data).end((err, res) => {
 			const result = JSON.parse(res.text);
 			asserts.equal(result.success, false);
-			asserts.equal(res.statusCode, 201);
+			asserts.equal(res.statusCode, 400);
 			asserts.equal(result.message, "Password do not match");
 			done();
 		});

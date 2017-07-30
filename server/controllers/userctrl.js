@@ -5,8 +5,13 @@ const Users = db.Users;
 
 export function SignUp(req, res) {
 
-	if (req.body.password !== req.body.cpassword) {
-		return res.status(201).json({
+	if (notValid(req)) {
+		return res.status(400).json({
+			success: false,
+			message: "All fields are required!"
+		})
+	} else if (req.body.password !== req.body.cpassword) {
+		return res.status(400).json({
 			success: false,
 			message: "Password do not match"
 		})
@@ -30,17 +35,10 @@ export function SignUp(req, res) {
 			});
 		})
 		.catch((error) => {
-			if (error.errors[0].message == "") {
-				return res.status(400).json({
-					success: false,
-					message: "All fields are required!"
-				});
-			} else {
-				return res.status(400).json({
-					success: false,
-					message: error.errors[0].message
-				});
-			}
+			return res.status(400).json({
+				success: false,
+				message: error.errors[0].message
+			});
 		});
 }
 
@@ -84,4 +82,21 @@ export function SignIn(req, res) {
 			});
 		});
 
+}
+
+function notValid(req) {
+
+	const username = req.body.username;
+	const phone = req.body.phone;
+	const email = req.body.email;
+	const password = req.body.password;
+
+	if (username === null || phone === null ||
+		email === null || password === null ||
+		username === undefined || phone === undefined ||
+		email === undefined || password === undefined) {
+		return true;
+	} else {
+		return false;
+	}
 }
