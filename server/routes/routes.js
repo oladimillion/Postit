@@ -19,7 +19,7 @@ import {
 
 import {
 	JoinGroup
-} from "../controllers/usergroupsctrl.js"
+} from "../controllers/usergroupsctrl.js";
 
 import {
 	PostMessage,

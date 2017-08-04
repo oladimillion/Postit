@@ -1,6 +1,8 @@
-import chai from "chai"
+import {
+	assert
+} from "chai"
 
-const asserts = chai.assert;
+// const assert = chai.assert;
 import supertest from 'supertest';
 
 import app from "../server";
@@ -12,7 +14,7 @@ describe('Signup route tests', () => {
 
 	it('should return status code of 400', (done) => {
 		request.post('/api/user/signup').send().end((err, res) => {
-			asserts.equal(res.statusCode, 400);
+			assert.equal(res.statusCode, 400);
 			done();
 		});
 	});
@@ -28,9 +30,9 @@ describe('Signup route tests', () => {
 		};
 		request.post('/api/user/signup').send(data).end((err, res) => {
 			const result = JSON.parse(res.text);
-			asserts.equal(result.success, false);
-			asserts.equal(res.statusCode, 400);
-			asserts.equal(result.message, "Password do not match");
+			assert.equal(result.success, false);
+			assert.equal(res.statusCode, 400);
+			assert.equal(result.message, "Password do not match");
 			done();
 		});
 	});
@@ -40,7 +42,7 @@ describe('Signin route tests', () => {
 
 	it('should respond with status code of 400', (done) => {
 		request.post('/api/user/signin').send().end((err, res) => {
-			asserts.equal(res.statusCode, 400);
+			assert.equal(res.statusCode, 400);
 			done();
 		});
 	});
@@ -52,9 +54,9 @@ describe('Signin route tests', () => {
 		};
 		request.post('/api/user/signin').send(data).end((err, res) => {
 			let result = JSON.parse(res.text);
-			asserts.equal(result.success, false);
-			asserts.equal(res.statusCode, 400);
-			asserts.equal(result.message, "Please register before login");
+			assert.equal(result.success, false);
+			assert.equal(res.statusCode, 400);
+			assert.equal(result.message, "Please register before login");
 			done();
 		});
 	});
@@ -64,7 +66,7 @@ describe('Group creation route tests', () => {
 
 	it('should respond with status code of 400', (done) => {
 		request.post('/api/group').send().end((err, res) => {
-			asserts.equal(res.statusCode, 400);
+			assert.equal(res.statusCode, 400);
 			done();
 		});
 	});
@@ -72,9 +74,9 @@ describe('Group creation route tests', () => {
 	it(`should respond with "Please provide valid group name"`, (done) => {
 		request.post('/api/group').send().end((err, res) => {
 			const result = JSON.parse(res.text);
-			asserts.equal(result.success, false);
-			asserts.equal(res.statusCode, 400);
-			asserts.equal(result.message, "Please provide valid group name");
+			assert.equal(result.success, false);
+			assert.equal(res.statusCode, 400);
+			assert.equal(result.message, "Please provide valid group name");
 			done();
 		});
 	});
@@ -84,7 +86,7 @@ describe('Add users to group route tests', () => {
 
 	it('should respond with status code of 400', (done) => {
 		request.post('/api/group/1/user').send().end((err, res) => {
-			asserts.equal(res.statusCode, 400);
+			assert.equal(res.statusCode, 400);
 			done();
 		});
 	});
@@ -93,9 +95,9 @@ describe('Add users to group route tests', () => {
 
 		request.post('/api/group/1/user').send().end((err, res) => {
 			const result = JSON.parse(res.text);
-			asserts.equal(result.success, false);
-			asserts.equal(res.statusCode, 400);
-			asserts.equal(result.message, "Please provide valid user id");
+			assert.equal(result.success, false);
+			assert.equal(res.statusCode, 400);
+			assert.equal(result.message, "Please provide valid user id");
 			done();
 		});
 	});
@@ -105,7 +107,7 @@ describe('Send group message route tests', () => {
 
 	it('should respond with status code of 400', (done) => {
 		request.post('/api/group/1/message').send().end((err, res) => {
-			asserts.equal(res.statusCode, 400);
+			assert.equal(res.statusCode, 400);
 			done();
 		});
 	});
@@ -114,9 +116,9 @@ describe('Send group message route tests', () => {
 
 		request.post('/api/group/1/message').send().end((err, res) => {
 			const result = JSON.parse(res.text);
-			asserts.equal(result.success, false);
-			asserts.equal(res.statusCode, 400);
-			asserts.equal(result.message, "Message field cannot be empty");
+			assert.equal(result.success, false);
+			assert.equal(res.statusCode, 400);
+			assert.equal(result.message, "Message field cannot be empty");
 			done();
 		});
 	});
@@ -126,7 +128,7 @@ describe('Retrieve group message route tests', () => {
 
 	it('should respond with status code of 400', (done) => {
 		request.get('/api/group/1/message').send().end((err, res) => {
-			asserts.equal(res.statusCode, 400);
+			assert.equal(res.statusCode, 400);
 			done();
 		});
 	});
@@ -135,9 +137,9 @@ describe('Retrieve group message route tests', () => {
 
 		request.get('/api/group/1/message').send().end((err, res) => {
 			const result = JSON.parse(res.text);
-			asserts.equal(result.success, false);
-			asserts.equal(res.statusCode, 400);
-			asserts.equal(result.message, "Please login");
+			assert.equal(result.success, false);
+			assert.equal(res.statusCode, 400);
+			assert.equal(result.message, "Please login");
 			done();
 		});
 	});

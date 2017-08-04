@@ -2,52 +2,154 @@
 <html>
 
 <head>
-    <meta charset="UTF-8">
-    <title>Welcome</title>
-    <!-- <link rel="stylesheet" href="/main.css"> -->
-    <link rel="stylesheet" href="/bootstrap.min.css">
+  <meta charset="UTF-8">
+  <title>Welcome</title>
+  <!-- <link rel="stylesheet" href="/main.css"> -->
+  <link rel="stylesheet" href="../../../client/dist/css/bundle.css">
+  <link rel="stylesheet" href="../../../client/dist/bootstrap/bootstrap.min.css">
+
 </head>
 
 <body>
-    <div class="container">
-        <div class="menu-bar">
-            <div><img src="/andela.jpg" alt="logo" height="60" width="60"></div>
-            <form action="" method="POST">
-                <div>Username:
-                    <input class="input-field" type="text" name="username" placeholder="Enter Username"></div>
-                <div>Password:
-                    <input class="input-field" type="password" name="password" placeholder="Enter Password"></div>
-                <div><a href="#">Forgot Password</a></div>
-                <div><button type="submit" class="btn btn-primary">Login</button></div>
-
-            </form>
+  <div class="container">
+    <div class="hidden-sm hidden-sx">
+      <div class="menu-bar">
+        <div><img src="../../../client/dist/img/andela.jpg" alt="logo" height="60" width="60"></div>
+        <form action="" method="POST">
+          <table>
+            <tr>
+              <td>
+                Username:
+              </td>
+              <td>
+                <input class="input-field" type="text" name="username" placeholder="Enter Username">
+              </td>
+              <td>
+                Password:
+              </td>
+              <td>
+                <input class="input-field" type="password" name="password" placeholder="Enter Password">
+              </td>
+            </tr>
+            <tr class="login-bottom">
+              <td></td>
+              <td></td>
+              <td>
+                <a href="#">Forgot Password</a>
+              </td>
+              <td>
+                <button type="submit" class="btn btn-primary">Login</button>
+              </td>
+            </tr>
+          </table>
+        </form>
+      </div>
+      <div class="row">
+        <div class="info col-md-6">
+          <h1>Welcome to Postit</h1>
+          <br>
+          <div>Postit allows
+            <br>friends and colleagues
+            <br>create groups for notifications.
+            <br>This way one person can post notifications
+            <br> to everyoneby sending a message once. </div>
         </div>
-
-        <div class="row">
-            <div class="info col-md-6 reg col-sm-6 reg col-xs-12">
-                <h1>Welcome to Postit</h1><br><br><br>
-                <div>Postit allows friends and<br> colleagues create groups for <br> notifications. This way one <br> person can post notifications <br> to everyoneby sending a message once. </div>
-            </div>
-            <div class="reg col-md-6 reg col-sm-6 reg col-xs-12">
-                <form action="" method="POST">
-                    <fieldset>
-                        <legend>Registration</legend>
-                        <label for="username">Username:</label>
-                        <input type="text" name="username" placeholder="Enter Username"><br>
-                        <label for="email">Email:</label>
-                        <input type="email" name="email" placeholder="Enter Email"><br>
-                        <label for="phone">Phone:</label>
-                        <input type="text" name="phone" placeholder="Enter Phone Number"><br>
-                        <label for="password">Password:</label>
-                        <input type="password" name="password" placeholder="Enter Password"><br>
-                        <label for="cpassoword">Confirm Password:</label>
-                        <input type="password" name="cpassword" placeholder="Enter Password Again"><br>
-                        <button type="submit" class="btn btn-info">Sign Up</button>
-                    </fieldset>
-                </form>
-            </div>
+        <div class="reg col-md-6 reg col-sm-6 reg col-xs-12">
+          <form action="" method="POST">
+            <fieldset>
+              <legend>Registration</legend>
+              <label for="username">Username:</label>
+              <input type="text" name="username" placeholder="Enter Username">
+              <br>
+              <label for="email">Email:</label>
+              <input type="email" name="email" placeholder="Enter Email">
+              <br>
+              <label for="phone">Phone:</label>
+              <input type="text" name="phone" placeholder="Enter Phone Number">
+              <br>
+              <label for="password">Password:</label>
+              <input type="password" name="password" placeholder="Enter Password">
+              <br>
+              <label for="cpassoword">Confirm Password:</label>
+              <input type="password" name="cpassword" placeholder="Enter Password Again">
+              <br>
+              <button type="submit" class="btn btn-info">Sign Up</button>
+            </fieldset>
+          </form>
         </div>
+      </div>
     </div>
+  </div>
+
+
+  <div class="hidden-md hidden-lg">
+    <div class="menu-bar-sm">
+      <div><img src="../../../client/dist/img/andela.jpg" alt="logo" height="60" width="60"></div>
+      <form action="" method="POST">
+        <table>
+          <tr>
+            <td>
+              Username:
+            </td>
+            <td>
+              <input class="input-field" type="text" name="username" placeholder="Enter Username">
+            </td>
+            <td>
+              Password:
+            </td>
+            <td>
+              <input class="input-field" type="password" name="password" placeholder="Enter Password">
+            </td>
+          </tr>
+          <tr class="login-bottom">
+            <td></td>
+            <td></td>
+            <td>
+              <a href="#">Forgot Password</a>
+            </td>
+            <td>
+              <button type="submit" class="btn btn-primary">Login</button>
+            </td>
+          </tr>
+        </table>
+      </form>
+    </div>
+    <div class="row">
+      <div class="info col-md-6">
+        <h1>Welcome to Postit</h1>
+        <br>
+        <div>Postit allows
+          <br>friends and colleagues
+          <br>create groups for notifications.
+          <br>This way one person can post notifications
+          <br> to everyoneby sending a message once. </div>
+      </div>
+      <div class="reg col-md-6 reg col-sm-6 reg col-xs-12">
+        <form action="" method="POST">
+          <fieldset>
+            <legend>Registration</legend>
+            <label for="username">Username:</label>
+            <input type="text" name="username" placeholder="Enter Username">
+            <br>
+            <label for="email">Email:</label>
+            <input type="email" name="email" placeholder="Enter Email">
+            <br>
+            <label for="phone">Phone:</label>
+            <input type="text" name="phone" placeholder="Enter Phone Number">
+            <br>
+            <label for="password">Password:</label>
+            <input type="password" name="password" placeholder="Enter Password">
+            <br>
+            <label for="cpassoword">Confirm Password:</label>
+            <input type="password" name="cpassword" placeholder="Enter Password Again">
+            <br>
+            <button type="submit" class="btn btn-info">Sign Up</button>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript" src="../../../client/dist/js/bundle.js"></script>
 </body>
 
 </html>

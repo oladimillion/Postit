@@ -4,11 +4,16 @@ import {
 
 import bcrypt from "bcrypt-nodejs"
 
-import config from "../config/config.json";
+// import config from "../config/config.json";
 
-const env = config["development"];
+// const env = config["development"];
 
-const sequelize = new Sequelize('postgres://ajczrsyb:o0Q7CfkhRuWIKYi6hi3qYbXpgsu0ksYJ@stampy.db.elephantsql.com:5432/ajczrsyb');
+// const sequelize = new Sequelize('postgres://ajczrsyb:o0Q7CfkhRuWIKYi6hi3qYbXpgsu0ksYJ@stampy.db.elephantsql.com:5432/ajczrsyb', {
+// 	logging: false
+// });
+const sequelize = new Sequelize('postgres://postgres:1234@127.0.0.1:5432/postit', {
+	logging: false
+});
 
 const db = {
 	Users: sequelize.import("./users"),
