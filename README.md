@@ -1,4 +1,4 @@
-# Postit      [![Build Status](https://travis-ci.org/oladimillion/Postit.svg?branch=development)](https://travis-ci.org/oladimillion/Postit)      [![Coverage Status](https://coveralls.io/repos/github/oladimillion/Postit/badge.svg)](https://coveralls.io/github/oladimillion/Postit)
+# Postit      [![Build Status](https://travis-ci.org/oladimillion/Postit.svg?branch=routes_branch)](https://travis-ci.org/oladimillion/Postit)      [![Coverage Status](https://coveralls.io/repos/github/oladimillion/Postit/badge.svg)](https://coveralls.io/github/oladimillion/Postit)
 <br>
 
 > Postit is a simple application that allows friends 
